@@ -6,24 +6,23 @@ def main():
 
     nombreServidor = ''
 
-    puertoServidor = 12000
+    puertoServidor = 80
 
+    socketCliente = socket(AF_INET,SOCK_STREAM)
+
+    socketCliente.connect((nombreServidor,puertoServidor))
    
-    while True:
+    sentence = input('Mensaje a enviar: ')
 
-        socketCliente = socket(AF_INET,SOCK_STREAM)
+    socketCliente.send(sentence.encode())
 
-        socketCliente.connect((nombreServidor,puertoServidor))
+    print("Esperando Respuesta ...")
 
-        sentence = input('Mensaje a enviar: ')
+    recibido = socketCliente.recv(1024)
 
-        socketCliente.send(sentence.encode())
+    print('Respuesta del servidor:',recibido.decode())
 
-        recibido = socketCliente.recv(1024)
-
-        print('Respuesta del servidor:',recibido.decode())
-
-        socketCliente.close()
+        
 
     
 
